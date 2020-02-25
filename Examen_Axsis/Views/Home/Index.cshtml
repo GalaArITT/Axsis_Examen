@@ -1,0 +1,73 @@
+﻿@model IEnumerable<Examen_Axsis.Models.usuarios_axsis>
+@{
+    ViewBag.Title = "Home Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@Html.ActionLink("Crear un nuevo usuario", "AltaUsuarios", null, new { @class = "btn btn btn-primary", @style = "margin-top:29px;" })
+<div class="container-fluid" style="margin-top:25px;">
+    <table class="table table-responsive table-hover" id="table_id">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.id)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.usuario)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.correo)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.sexo)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.estatus)
+                </th>
+                <th>Acciones</th>
+            </tr>
+        </thead>    
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.id)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.usuario)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.correo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.sexo)
+                    </td>
+                    @if (item.estatus == true)
+                    {
+                        <td>SI</td>
+                    }
+                    else
+                    {
+                        <td>NO</td>
+                    }
+
+                    <td>
+                        @Html.ActionLink("Inactivar", "EliminarUsuario", new { id = item.id }, new { @class = "btn btn btn-danger", @id = "btnEliminar" })
+                        @Html.ActionLink("Actualizar", "ModificarUsuario", new { id = item.id }, new { @class = "btn btn btn-success", @id = "btnActualizar" })
+                    </td>
+                </tr>
+            }
+        </tbody>  
+    </table>
+
+</div>
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $("#table_id").DataTable(
+                ""
+            );        
+        })
+    </script>
+
+}
